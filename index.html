@@ -84,7 +84,10 @@
 </div>
 
 <script>
-    // Detecta Telegram Desktop
+   console.log("Telegram.WebApp", Telegram.WebApp);
+console.log("Version", Telegram.WebApp.version);
+console.log("Platform", Telegram.WebApp.platform);
+
     const isDesktop = navigator.userAgent.includes("TelegramDesktop");
     if (isDesktop) {
         document.getElementById("alertDesktop").style.display = "block";

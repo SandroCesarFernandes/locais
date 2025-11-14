@@ -103,7 +103,7 @@
         Telegram.WebApp.sendData(JSON.stringify(dados));
 
         // Feedback visual
-        Telegram.WebApp.showAlert("Dados enviados com sucesso!");
+        Telegram.WebApp.showAlert(Telegram.WebApp.platform);
     }
 
     Telegram.WebApp.expand();

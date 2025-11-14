@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário Telegram</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--tg-theme-bg-color, #f2f3f5);
+            color: var(--tg-theme-text-color, #222);
+            padding: 20px;
+            margin: 0;
+        }
+
+        .container {
+            background: var(--tg-theme-secondary-bg-color, white);
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+
+        h2 {
+            margin-top: 0;
+            text-align: center;
+        }
+
+        select {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 17px;
+            border: none;
+            border-radius: 10px;
+            background: var(--tg-theme-button-color, #2a7cff);
+            color: var(--tg-theme-button-text-color, white);
+            cursor: pointer;
+        }
+
+        button:hover {
+            opacity: 0.9;
+        }
+
+        .alert {
+            background: #ffcccc;
+            color: #900;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h2>Escolha o Local</h2>
+
+    <div id="alertDesktop" class="alert">
+        ⚠ O envio de dados NÃO funciona no Telegram Desktop.<br>
+        Use celular ou Telegram Web (K ou A).
+    </div>
+
+    <label for="local">Local:</label>
+    <select id="local">
+        <option value="SOROCABA">SOROCABA</option>
+        <option value="SUMARÉ">SUMARÉ</option>
+        <option value="ITUPEVA">ITUPEVA</option>
+        <option value="VALINHOS">VALINHOS</option>
+    </select>
+
+    <button onclick="enviar()">Enviar Dados</button>
+
+</div>
+
+<script>
+    // Detecta Telegram Desktop
+    const isDesktop = navigator.userAgent.includes("TelegramDesktop");
+    if (isDesktop) {
+        document.getElementById("alertDesktop").style.display = "block";
+    }
+
+    function enviar() {
+        const local = document.getElementById("local").value;
+
+        const dados = {
+            local_selecionado: local,
+            timestamp: new Date().toISOString()
+        };
+
+        Telegram.WebApp.sendData(JSON.stringify(dados));
+
+        // Feedback visual
+        Telegram.WebApp.showAlert("Dados enviados com sucesso!");
+    }
+
+    Telegram.WebApp.expand();
+</script>
+
+</body>
+</html>
